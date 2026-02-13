@@ -6,9 +6,12 @@ const { isAdmin } = require("../middlewares/roleMiddleware");
 
 router.post("/login", authController.login);
 
-// Rutas exclusivas para ADMIN
-router.put("/:id", authMiddleware, isAdmin, authController.updateUsuario);
-router.delete("/:id", authMiddleware, isAdmin, authController.deleteUsuario);
+router.get("/users", authMiddleware, isAdmin, authController.getAllUsuarios);
 router.post("/register", authMiddleware, isAdmin, authController.registrar);
+
+router.put("/:id", authMiddleware, isAdmin, authController.updateUsuario);
+
+//(Borrado lógico)
+router.delete("/:id", authMiddleware, isAdmin, authController.deleteUsuario);
 
 module.exports = router;

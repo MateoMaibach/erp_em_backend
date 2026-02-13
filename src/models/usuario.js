@@ -3,39 +3,49 @@ const sequelize = require("../config/db");
 const bcrypt = require("bcryptjs");
 
 const Usuario = sequelize.define(
-  "usuario",
+  "Usuario",
   {
     id_usuario: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
     },
-    username: {
+    usuario: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    password: {
+    contraseña: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     rol: {
-      type: DataTypes.ENUM("admin", "vendedor", "logistica"),
+      type: DataTypes.ENUM("admin", "vendedor"),
       defaultValue: "vendedor",
+    },
+    activo: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
     },
   },
   {
+    tableName: "usuarios",
+    timestamps: false,
     hooks: {
       beforeCreate: async (user) => {
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
+        user.contraseña = await bcrypt.hash(user.contraseña, 10);
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed("contraseña")) {
+          user.contraseña = await bcrypt.hash(user.contraseña, 10);
+        }
       },
     },
   },
 );
 
-Usuario.prototype.validPassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+Usuario.prototype.validPassword = async function (passwordPlano) {
+  return await bcrypt.compare(passwordPlano, this.contraseña);
 };
 
 module.exports = Usuario;

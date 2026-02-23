@@ -11,7 +11,6 @@ router.post("/register", authMiddleware, isAdmin, authController.registrar);
 
 router.put("/:id", authMiddleware, isAdmin, authController.updateUsuario);
 
-//(Borrado lógico)
 router.delete("/:id", authMiddleware, isAdmin, authController.deleteUsuario);
 
 module.exports = router;

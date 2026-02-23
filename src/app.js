@@ -2,10 +2,14 @@ const express = require("express");
 const sequelize = require("./config/db");
 require("dotenv").config();
 const authRoutes = require("../src/routes/authRoutes");
+const ficheroRoutes = require('./routes/ficheroRoutes');
+const localidadRoutes = require('./routes/localidadRoutes');
 
 const app = express();
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use('/api/ficheros', ficheroRoutes);
+app.use('/api/localidades', localidadRoutes);
 
 const PORT = process.env.PORT || 3000;
 

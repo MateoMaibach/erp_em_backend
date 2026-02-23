@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const ficheroController = require("../controllers/ficheroController");
-const authMiddleware = require("../middlewares/authMiddleware");
-const { isAdmin } = require("../middlewares/roleMiddleware");
+const ficheroController = require("../controllers/fichero.controller");
+const authMiddleware = require("../middlewares/auth.middleware");
+const { isAdmin } = require("../middlewares/role.middleware");
 
 // Protección global: hay que estar logueado
 router.use(authMiddleware);

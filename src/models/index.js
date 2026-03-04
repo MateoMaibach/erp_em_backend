@@ -3,9 +3,10 @@ const Localidad = require("./Localidad");
 const FicheroCliente = require("./FicheroCliente");
 const Proveedor = require("./proveedor.model");
 const Articulo = require("./articulo.model");
+const Deposito = require("./deposito.model");
 
-Articulo.belongsTo(Proveedor, { foreignKey: 'id_proveedor', as: 'proveedor' });
-Proveedor.hasMany(Articulo, { foreignKey: 'id_proveedor' });
+Articulo.belongsTo(Proveedor, { foreignKey: "id_proveedor", as: "proveedor" });
+Proveedor.hasMany(Articulo, { foreignKey: "id_proveedor" });
 
 FicheroCliente.belongsTo(Localidad, {
   foreignKey: "id_localidad",
@@ -30,9 +31,6 @@ module.exports = {
   Localidad,
   FicheroCliente,
   Proveedor,
-  Articulo
+  Articulo,
+  Deposito
 };
-
-
-
-
